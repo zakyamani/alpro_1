@@ -1,0 +1,26 @@
+Program PECAHAN
+{Menghitung selisih pecahan}
+
+KAMUS
+    { Definisi Type }
+    type pecahan : < pembilang : integer,
+                     penyebut : integer >
+
+    { Definisi Variabel }
+    P1, P2, selisih : pecahan
+    
+
+ALGORITMA
+    input(P1.pembilang, P1.penyebut)
+    input(P2.pembilang, P2.penyebut)
+
+    if P2.penyebut > 0 then
+        selisih.penyebut <- (P1.penyebut * P2.penyebut)
+        if P1.pembilang/P1.penyebut > P2.pembilang/P2.penyebut then
+            selisih.pembilang <- (P1.pembilang * P2.penyebut - P2.pembilang * P1.penyebut)
+        else {P1 <= P2}
+            selisih.pembilang <- (P2.pembilang * P1.penyebut - P1.pembilang * P2.penyebut)
+
+        output(selisih.pembilang, "/", selisih.penyebut)
+    else {penyebut <= 0}
+        output("Masukan tidak valid")

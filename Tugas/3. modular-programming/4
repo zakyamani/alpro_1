@@ -1,0 +1,168 @@
+Program TanggalHariIniDanBesok
+{ Menampilkan tanggal hari ini dan besok }
+
+KAMUS
+    type tanggal : < DD : integer, { hari }
+                     MM : integer, { bulan }
+                     YY : integer, { tahun }
+
+    today : tanggal
+    
+    function NextDay (today : tanggal) -> tanggal
+    { Menentukan tanggal besok }
+
+    function IsTanggalValid (d : integer, m : integer, y : integer) -> boolean
+    { Mengecek kevalidan tanggal }
+
+    procedure BacaTanggal(output today : tanggal)
+    { I.S. Tanggal; F.S. mendapatkan tanggal yang valid }
+
+    function NamaBulan (m : integer) -> string
+    { Mengkonversi bulan dalam bentuk angka menjadi nama bulan }
+
+    function NamaBulan (m : integer) -> string
+    { Mengkonversi bulan dalam bentuk angka menjadi nama bulan }
+
+    procedure TulisTanggal(input T : Tanggal)
+    { Menuliskan tanggal dalam Bahasa Indonesia }
+
+
+
+ALGORITMA PROGRAM UTAMA
+    BacaTanggal(today)
+    output("hari ini adalah tanggal")
+    TulisTanggal(today)
+    output("Besok adalah tanggal ")
+    TulisTanggal(NextDay(today))
+
+
+
+{ Realisasi Fungsi }
+function NextDay (today : tanggal) -> tanggal
+{ Menentukan tanggal besok }
+
+KAMUS LOKAL
+    tomorrow : tanggal
+
+ALGORITMA
+    { Menentukan hari besok }
+    if today.MM = 1 or today.MM = 3 or today.MM = 5 or today.MM = 7 or today.MM = 8 or today.MM = 10 or today.MM = 12 then { Untuk bulan yang maksimal tanggalnya 31}
+        if today.DD = 31 then { pergantian bulan }
+            tomorrow.DD <- 1
+        else { tetap di bulan yang sama }
+            tomorrow.DD <- today.DD + 1
+    else if today.MM = 4 or today.MM = 6 or today.MM = 9 or today.MM = 11 then { Untuk bulan yang maksimal tanggalnya 30 }
+        if today.DD = 30 then { pergantian bulan }
+            tomorrow.DD <- 1
+        else { tetap di bulan yang sama }
+            tomorrow.DD <- today.DD + 1
+    else { Untuk bulan februari }
+        if (today.YY MOD 4 = 0 and today.YY MOD 100 != 0) or today.YY MOD 400 = 0 then { tahun kabisat }
+            if today.DD = 29 then { pergantian bulan }
+                tomorrow.DD <- 1
+            else { tetap di bulan yang sama }
+                tomorrow.DD <- today.DD + 1
+        else
+            if today.DD = 28 then { pergantian bulan }
+                tomorrow.DD <- 1
+            else { tetap di bulan yang sama }
+                tomorrow.DD <- today.DD + 1
+    
+    { Menentukan bulan besok }
+    if tomorrow.DD = 1 then { pergantian bulan }
+        if today.MM = 12 then { pergantian tahun }
+            tomorrow.MM <- 1
+        else { tetap di tahun yang sama }
+            tomorrow.MM <- today.MM + 1
+    else { tetap di bulan yang sama }
+        tomorrow.MM <- today.MM
+    
+    { Menentukan tahun besok }
+    if tomorrow.DD = 1 and tomorrow.MM = 1 then { pergantian tahun }
+        tomorrow.YY <- today.YY + 1
+    else { tetap di tahun yang sama }
+        tomorrow.YY <- today.YY 
+    
+    -> tomorrow
+
+
+
+function IsTanggalValid (d : integer, m : integer, y : integer) -> boolean
+{ Mengecek kevalidan tanggal }
+
+KAMUS LOKAL
+    jumlahHari : integer
+
+ALGORITMA
+    if y < 1 then { tahun < 1 }
+        -> false
+    
+    if m < 1 or m > 12 then { bulan < 1 dan bulan > 12 }
+        -> false
+    
+    if d < 1 or d > 31 then { hari < 1 dan hari > 31 }
+        -> false
+
+    if d = 31 and m != 1 and m != 3 and m != 5 and m != 7 and m != 8 and m != 10 and m != 12 then { hari 31 tapi di bulan 30 hari }
+        -> false
+    
+    if d = 30 and m = 2 then {hari 30 tapi di februari}
+        -> false
+    
+    if m = 2 and not ((y MOD 4 = 0 and y MOD 100 != 0) or y MOD 400 = 0) and d = 29 then { 29 februari tapi bukan tahun kabisat }
+        -> false
+    
+    -> true
+
+procedure BacaTanggal(output today : tanggal)
+{ I.S. Tanggal; F.S. mendapatkan tanggal yang valid }
+
+KAMUS LOKAL
+    d, m, y : integer
+
+ALGORITMA
+    output("Masukkan tanggal hari ini: ")
+    input(d, m, y)
+    while not IsTanggalValid(d, m, y) do
+        output("Tanggal tidak valid, silahkan masukkan kembali: ")
+        input(d, m, y)
+
+    today.DD <- d
+    today.MM <- m 
+    today.YY <- y
+
+
+
+function NamaBulan (m : integer) -> string
+{ Mengkonversi bulan dalam bentuk angka menjadi nama bulan }
+
+KAMUS LOKAL
+
+ALGORITMA
+    depend on (m)
+        m = 1 : -> "Januari"
+        m = 2 : -> "Februari"
+        m = 3 : -> "Maret"
+        m = 4 : -> "April"
+        m = 5 : -> "Mei"
+        m = 6 : -> "Juni"
+        m = 7 : -> "Juli"
+        m = 8 : -> "Agustus"
+        m = 9 : -> "September"
+        m = 10 : -> "Oktober"
+        m = 11 : -> "November"
+        m = 12 : -> "Desember"
+
+
+
+procedure TulisTanggal(input T : Tanggal)
+{ Menuliskan tanggal dalam Bahasa Indonesia }
+
+KAMUS LOKAL
+
+ALGORITMA
+    output(T.DD, " ", NamaBulan(T.MM), " ", T.YY)
+        
+
+
+    

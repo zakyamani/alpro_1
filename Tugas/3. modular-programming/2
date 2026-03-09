@@ -1,0 +1,60 @@
+Program NEXTDAY
+{ Menentukan tanggal besok }
+
+KAMUS
+    type tanggal : < DD : integer, { hari }
+                     MM : integer, { bulan }
+                     YY : integer, { tahun } 
+    
+    function NextDay (today : tanggal) -> tanggal
+    { Menentukan tanggal besok }
+
+ALGORITMA PROGRAM UTAMA
+
+{ Realisasi Fungsi }
+function NextDay (today : tanggal) -> tanggal
+{ Menentukan tanggal besok }
+
+KAMUS LOKAL
+    tomorrow : tanggal
+
+ALGORITMA
+    { Menentukan hari besok }
+    if today.MM = 1 or today.MM = 3 or today.MM = 5 or today.MM = 7 or today.MM = 8 or today.MM = 10 or today.MM = 12 then { Untuk bulan yang maksimal tanggalnya 31}
+        if today.DD = 31 then { pergantian bulan }
+            tomorrow.DD <- 1
+        else { tetap di bulan yang sama }
+            tomorrow.DD <- today.DD + 1
+    else if today.MM = 4 or today.MM = 6 or today.MM = 9 or today.MM = 11 then { Untuk bulan yang maksimal tanggalnya 30 }
+        if today.DD = 30 then { pergantian bulan }
+            tomorrow.DD <- 1
+        else { tetap di bulan yang sama }
+            tomorrow.DD <- today.DD + 1
+    else { Untuk bulan februari }
+        if (today.YY MOD 4 = 0 and today.YY MOD 100 != 0) or today.YY MOD 400 = 0 then { tahun kabisat }
+            if today.DD = 29 then { pergantian bulan }
+                tomorrow.DD <- 1
+            else { tetap di bulan yang sama }
+                tomorrow.DD <- today.DD + 1
+        else
+            if today.DD = 28 then { pergantian bulan }
+                tomorrow.DD <- 1
+            else { tetap di bulan yang sama }
+                tomorrow.DD <- today.DD + 1
+    
+    { Menentukan bulan besok }
+    if tomorrow.DD = 1 then { pergantian bulan }
+        if today.MM = 12 then { pergantian tahun }
+            tomorrow.MM <- 1
+        else { tetap di tahun yang sama }
+            tomorrow.MM <- today.MM + 1
+    else { tetap di bulan yang sama }
+        tomorrow.MM <- today.MM
+    
+    { Menentukan tahun besok }
+    if tomorrow.DD = 1 and tomorrow.MM = 1 then { pergantian tahun }
+        tomorrow.YY <- today.YY + 1
+    else { tetap di tahun yang sama }
+        tomorrow.YY <- today.YY 
+    
+    -> tomorrow

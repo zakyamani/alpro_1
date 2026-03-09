@@ -1,0 +1,21 @@
+Program RESISTOR
+{Menghitung Resistor total}
+
+KAMUS
+    { Definisi Variabel }
+    R1, R2, R3, RT : integer
+    pilihan : integer
+
+ALGORITMA
+    input(R1, R2, R3)
+    input(pilihan)
+
+    if pilihan = 1 then {serial}
+        RT <- (R1 + R2 + R3)
+        output(RT)
+    else {paralel}
+        if R1 > 0 and R2 > 0 and R3 > 0 then
+            RT <- ((R1 * R2 * R3) / (R1 * R2 + R2 * R3 + R3 * R1))
+            output(RT)
+        else {Ada R yang 0}
+            output("Masukan tidak valid")

@@ -1,0 +1,34 @@
+Program TUKAR
+{ Menukar bilangan }
+
+KAMUS
+    procedure Tukar (input a : integer, input b : integer)
+    { I.S. diberikan nilai a = A  dan b = B ; F.S. a = B dan b = A }
+
+    procedure Putar3Bil (input a : integer, input b : integer, input c : integer)
+    
+
+ALGORITMA PROGRAM UTAMA
+
+
+{ Realisasi Fungsi }
+procedure Tukar (input a : integer, input b : integer)
+{ I.S. diberikan nilai a = A, b = B, dan c = C; F.S. a = C, b = A, dan c = B }
+
+KAMUS LOKAL
+temp : integer
+
+ALGORITMA
+    temp <- a
+    a <- b
+    b <- temp
+
+
+procedure Putar3Bil (input a : integer, input b : integer, input c : integer)
+{ I.S. diberikan nilai a = A  dan b = B ; F.S. a = B dan b = A }
+
+KAMUS LOKAL
+
+ALGORITMA
+    Tukar(a, c)
+    Tukar(a, b)

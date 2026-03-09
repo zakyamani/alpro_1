@@ -1,0 +1,41 @@
+Program MAX
+{ Mencari bilangan maksimal }
+
+KAMUS
+    function Max2 (x : integer, y : integer) -> integer
+    { Mencari bilangan maksimal di antara dua bilangan }
+
+    function Max3 (x : integer, y : integer, z : integer) -> integer
+    { Mencari bilangan maksimal di antara tiga bilangan }
+
+ALGORITMA PROGRAM UTAMA
+
+
+{ Realisasi Fungsi }
+function Max2 (x : integer, y : integer) -> integer
+{ Mencari bilangan maksimal di antara dua bilangan }
+
+KAMUS LOKAL
+    temp : integer
+
+ALGORITMA
+    temp <- x
+    if y > temp then
+        temp <- y
+    -> temp
+
+
+function Max3 (x : integer, y : integer, z : integer) -> integer
+{ Mencari bilangan maksimal di antara tiga bilangan }
+
+KAMUS LOKAL
+    temp : integer
+
+ALGORITMA
+    temp <- x
+    if y > temp then
+        temp <- y
+    if z > temp then
+        temp <- z
+    -> temp 
+     
